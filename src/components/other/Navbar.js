@@ -55,12 +55,12 @@ function Navbar(props) {
                     <Col span={24} style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                         <Layout className="layout" >
                             <div className="logo" />
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['key']} style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
                                 <Menu.Item key="1"><Link to ="/course">Course</Link></Menu.Item>
                                 <Menu.Item key="2"><Link to ="/booking">Booking</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to ="/cart">Cart</Link></Menu.Item>
                                 <Search placeholder="input search text" onSearch={value => console.log(value)} style={{width:"20vw"}} senterButton />
-                                <Button onClick={logout} setRole={props.setRole}>Logout</Button>
+                                <Button type="primary" danger onClick={logout} setRole={props.setRole}>Logout</Button>
                             </Menu>
                         </Layout>
                     </Col>

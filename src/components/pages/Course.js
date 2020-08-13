@@ -44,30 +44,27 @@ useEffect(() => {
             <Navbar setRole={props.setRole}/>
             <Carousel autoplay style={{height:"300px" ,width:"100%" }}>
                     <div >
-                    <img src="https://images.unsplash.com/photo-1597123142966-4ce237ab1289?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" style={contentStyle}/>
+                    <img src="https://images.unsplash.com/photo-1512552288940-3a300922a275?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" style={contentStyle}/>
                     </div>
                     <div>
-                    <h3 style={contentStyle}>2</h3>
+                    <img src="https://images.unsplash.com/photo-1491510736257-3ad769ff47b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" style={contentStyle}/>
                     </div>
                     <div>
-                    <h3 style={contentStyle}>3</h3>
+                    <img src="https://images.unsplash.com/photo-1592895792095-85fa785192a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" style={contentStyle}/>
                     </div>
                     <div>
-                    <h3 style={contentStyle}>4</h3>
+                    <img src="https://images.unsplash.com/photo-1466193341027-56e68017ee2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" style={contentStyle}/>
                     </div>
             </Carousel>
-
-            
-
-            <h1>this is course page</h1>
-            
+            <br/>
+            <br/>
             <Row gutter={24} style={{ padding: "10px 10px 10px 10px ", backgroundColor: "white"}}>
                       {getCourse.map((item,idx)=>
-                        <Col className="gutter-row" key ={idx} span={8} style={{ paddingRight: "5px",paddingLeft: "20px" }} >
+                        <Col className="gutter-row" key ={idx} span={6} style={{ width:"200px" }} >
                          <Card
                             hoverable
-                            style={{ width: 200 }}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                            style={{ width: 300 }}
+                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" style={{height:"200px"}} />}
                             ><Meta title={item.name} description={item.catagory}  />
                                 <p>{item.price}</p>
                             <br/>
