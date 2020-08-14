@@ -11,8 +11,8 @@ function DoctorProfile(props) {
     const [getDoctor, setGetDoctor] = useState([])
 // console.log(props)
     const fetchData = async()=>{
-        
-      const doctor =  await axios.get(`/doctor/${props.state.doctor_id}`)
+    const state = JSON.parse(localStorage.getItem("course"))
+      const doctor =  await axios.get(`/doctor/${state.doctor_id}`)
     //   console.log(doctor)
     setGetDoctor (doctor.data)
     }

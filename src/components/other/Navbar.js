@@ -1,4 +1,4 @@
-import React , { useState, useEffect }from 'react'
+import React , { useState, useEffect, useContext }from 'react'
 import { Layout, Menu, Row, Col, Button } from 'antd';
 import LocalStorageService from '../../services/LocalStorageService';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 import { Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import axios from '../../config/axios';
+import { SearchContext } from '../../context/SearchContext';
 
 
 const { Header } = Layout;
@@ -29,10 +30,21 @@ function Navbar(props) {
     const [name, setName] = useState("");
     const [id, setId] = useState(0);
 
+    const {searchTerm, setSearchTerm} = useContext(SearchContext)
+
     const logout = () => {
         LocalStorageService.removeToken();
         props.setRole("guest");
     };
+
+
+    const fetchData = async()=>{
+        const search = await axios.get("/course/search")
+
+         
+     
+     }
+
 
     useEffect(() => {
       
@@ -41,7 +53,6 @@ function Navbar(props) {
         if (token) {
             const user = jwtDecode(token);
             setName(user.name);
-            setId(user.id);
         }
     }, []);
     
@@ -59,7 +70,8 @@ function Navbar(props) {
                                 <Menu.Item key="1"><Link to ="/course">Course</Link></Menu.Item>
                                 <Menu.Item key="2"><Link to ="/booking">Booking</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to ="/cart">Cart</Link></Menu.Item>
-                                <Search placeholder="input search text" onSearch={value => console.log(value)} style={{width:"20vw"}} senterButton />
+                                <Search placeholder="input search text" onSearch={value => setSearchTerm(value)} style={{width:"20vw"}} senterButton />
+                                 <Button>{name}</Button>
                                 <Button type="primary" danger onClick={logout} setRole={props.setRole}>Logout</Button>
                             </Menu>
                         </Layout>

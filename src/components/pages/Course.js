@@ -1,9 +1,11 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState, useContext} from 'react'
 import Navbar from '../other/Navbar'
 import { Carousel,Card, Row, Col } from 'antd';
 import axios from '../../config/axios'
 import {CheckCircleTwoTone } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
+import {SearchContext} from '../../context/SearchContext'
+
 
 const contentStyle = {
     height: '50vh',
@@ -20,24 +22,29 @@ const { Meta } = Card;
 
 function Course(props) {
 
+const {searchTerm, setSearchTerm} = useContext(SearchContext);   
 const [getCourse, setGetCourse] = useState([])
 
-const fetchData = async()=>{
-   const getCourse = await axios.get("/course/")
-   setGetCourse (getCourse.data)
 
-
-}
-console.log(getCourse)
+console.log(searchTerm)
 
 const toDoctorProfile=(item)=>{
     props.setState(item)
+    localStorage.setItem("course", JSON.stringify (item))
     props.history.push('/doctorprofile')
 }
+ 
+
+
 
 useEffect(() => {
+const fetchData = async()=>{
+   const getCourse = await axios.get(`/course/search/?name=${searchTerm}`)
+   setGetCourse (getCourse.data)
+  
+}
     fetchData()
-}, [])
+}, [searchTerm])
 
     return (
         <div style={{height:"100vh" }}>
@@ -64,7 +71,7 @@ useEffect(() => {
                          <Card
                             hoverable
                             style={{ width: 300 }}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" style={{height:"200px"}} />}
+                            cover={<img alt="example" src={item.image_url} style={{height:"200px"}} />}
                             ><Meta title={item.name} description={item.catagory}  />
                                 <p>{item.price}</p>
                             <br/>
