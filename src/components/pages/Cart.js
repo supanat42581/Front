@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../other/Navbar'
 import axios from '../../config/axios';
-import { Carousel, Card, Row, Col, Button } from 'antd';
+import { Carousel, Card, Row, Col, Button,Typography, Space } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { convertLegacyProps } from 'antd/lib/button/button';
@@ -10,15 +10,17 @@ function Cart(props) {
     // const {state} = props
 
     // const [getCourse, setGetCourse] = useState({})
-    const [cart, setCart] = useState([])
-
+    const { Meta } = Card;
+    const { Text, Link } = Typography;
+    const [courses, setCourses] = useState([])
 
 
     const fetchData = async () => {
 
         try {
-            const book = await axios.get(`/booking/`)
-            setCart(book.data)
+            const courses = await axios.get(`/courses/user`)
+            setCourses(courses.data[0])
+
 
         } catch (err) {
             console.log(err.message)
@@ -32,10 +34,10 @@ function Cart(props) {
     }
     // console.log(getCourse)
 
-    const deleteOrder = async (course_id, doctor_id) => {
-        console.log(course_id, doctor_id)
+    const deleteOrder = async (bookingId) => {
+        // console.log(1)
         try {
-            const targetOrder = await axios.delete(`/booking/${doctor_id}/${course_id}`)
+            const targetOrder = await axios.delete(`/booking/${bookingId}`)
             // console.log(targetOrder)
             fetchData()
         } catch (err) {
@@ -63,31 +65,48 @@ function Cart(props) {
                     </Col>
                 </Row>
                 <Row>
-                    {cart.map(book => (
-                        <Col span={12}>
-                            <div>
-                                <div style={{ backgroundColor: "OldLace", height: "80vh", width: "100vw", justifyContent: "start" }}>
-                                    <h1>CART</h1>
-                                    <h3>Course Name : {book.Course.name}</h3>
-                                    <h3>Price : {book.Course.price}</h3>
-                                    <h3>Doctor name : {book.Doctor.name}</h3>
-                                    <h3>Doctor Education : {book.Doctor.education}</h3>
-                                    <h3>Date : {book.date.slice(0, 10)}</h3>
-                                    <h3>Time : {book.date.slice(11, -5)}</h3>
-                                    <img src={book.Course.image_url} style={{ width: "300px", height: "200px" }} />
-                                    <br />
-                                    <br />
-                                    <button onClick={() => deleteOrder(book.Course.id, book.Doctor.id)}>DELETE</button>
+                    {courses.map(course => (
+                        <Col span={6} >
+                            <div style={{justifyContent:"center", alignItems:"middle"}}>
+                                <h1>CART</h1>
+                                <Card
+                                    hoverable
+                                    style={{ display:"flex" ,width: "100vw"}}
+                                    cover={<div><img alt="example" src={course.image} style={{height:"200px", width:"80%" ,margin:"20px"}}/></div>
 
+                                         }
+                                >
+                                    <Meta style={{ display:"flex" ,width: "50vw"}} />
+                                
+
+
+                                <div style={{backgroundColor: "OldLace", height: "80%", width: "100%",display:"flex" , flexDirection:"column", justifyContent:"flex-start" }}>
+                                  
+                                <div style={{marginTop:"20px"}}><Text keyboard>Course Name : </Text> {course.COURSE_NAME}</div>
+                                <div><Text keyboard>Price : </Text>{course.course_price}<br/></div>
+                                <div><Text keyboard> Doctor name : </Text>{course.doctor_name}<br/></div>
+                                <div><Text keyboard>Date : </Text>{course.BOOKING_DATE.slice(0, 10)}<br/></div>
+                                <div><Text keyboard>Time : </Text>{course.BOOKING_DATE.slice(11, -5)}<br/></div>
+                                
                                 </div>
+                                    <br />
+                                    <br /> 
+                                    <div style={{display:"flex" ,justifyContent:"center"}}>
+                                    <button onClick={() => deleteOrder(course.BOOKING_ID)}>DELETE</button>
+                                    </div>
+                                
+                                </Card>
                             </div>
+
+
                         </Col>
                     ))}
                 </Row>
-
-                <Row>
-                    <Col span={24}>
-                        <Button type="primary" danger><Link to="/course">X</Link></Button>
+                                     <br />
+                                    <br /> 
+                <Row style={{justifyContent:"center"}}>
+                    <Col span={4}>
+                        <Button type="primary" danger><Link to="/course">Back To Home</Link></Button>
                     </Col>
                 </Row>
             </Col>

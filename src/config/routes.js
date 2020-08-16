@@ -8,6 +8,7 @@ import DoctorConfirmPage from '../components/pages/DoctorConfirm'
 import DoctorProfilePage from '../components/pages/DoctorProfile'
 import StatusAcceptPage from '../components/pages/StatusAccept'
 import StatusPendingPage from '../components/pages/StatusPending'
+import AddCoursePage from '../components/pages/AddCourse'
 
 
 const components = {
@@ -47,6 +48,10 @@ const components = {
     statuspending: {
         url: "/statuspending",
         component: StatusPendingPage
+    },
+    addcourse: {
+        url: "/addcourse",
+        component: AddCoursePage
     }
 };
 
@@ -68,6 +73,7 @@ export default {
             components.doctorprofile,
             components.statusaccept,
             components.statuspending,
+            components.addcourse,
         ],
         redirectRoutes: "/course"
     },

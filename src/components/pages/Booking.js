@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { DatePicker, Form, TimePicker, Row, Col, Button } from 'antd';
+import { DatePicker, Form, TimePicker, Row, Col, Button,Typography, Space } from 'antd';
 import Navbar from '../other/Navbar';
 import axios from '../../config/axios';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ const { RangePicker } = DatePicker;
 
 function Booking(props) {
   // const {state} = props
-
+  const { Text} = Typography;
   const formItemLayout = {
     labelCol: {
       xs: {
@@ -65,7 +65,6 @@ function Booking(props) {
     const book = await axios.post('/booking/', {
       date: values["date-time-picker"],
       course_id: state.id,
-      doctor_id: state.doctor_id,
       status: "pending"
     })
 
@@ -85,13 +84,13 @@ function Booking(props) {
     <div>
       <Navbar setRole={props.setRole} />
       <Row style={{ justifyContent: "center", alignItems: 'center' }}>
-        <Col style={{ height: "93vh" }} span={14}>
+        <Col style={{ height: "88vh" }} span={14}>
           <img alt="consult" src="https://images.unsplash.com/photo-1524758870432-af57e54afa26?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" style={{ height: "100%", width: "90%" }} />
         </Col>
         <Col span={8}>
           <Row style={{ justifyContent: "center", alignItems: 'center' }}>
             <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
-
+            <h1><Text mark>Feel free to talk with us, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>&nbsp;......So select your time now!!!&nbsp;&nbsp;</Text></h1>
               <Form.Item name="date-time-picker" label="Select Time" {...config}>
                 <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
               </Form.Item>
@@ -110,7 +109,6 @@ function Booking(props) {
               >
                 <Button type="primary" htmlType="submit" >
                   Submit
-                    {/* <Link to="/cart">Submit</Link> */}
                 </Button>
               </Form.Item>
             </Form>

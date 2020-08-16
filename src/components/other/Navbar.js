@@ -1,5 +1,5 @@
 import React , { useState, useEffect, useContext }from 'react'
-import { Layout, Menu, Row, Col, Button } from 'antd';
+import { Layout, Menu, Row, Col, Button} from 'antd';
 import LocalStorageService from '../../services/LocalStorageService';
 import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
@@ -7,7 +7,8 @@ import { Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import axios from '../../config/axios';
 import { SearchContext } from '../../context/SearchContext';
-
+import logo from '../../components/picture/logo.jpg'
+import { SmileTwoTone } from '@ant-design/icons';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -60,30 +61,23 @@ function Navbar(props) {
     return (
     
     
-        <Row>
-            <Col span={24}>
+        
                 <Row>
-                    <Col span={24} style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                    <Col span={24} style={{display:"flex", justifyContent:"start", alignItems:"center"}}>
                         <Layout className="layout" >
                             <div className="logo" />
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['key']} style={{display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
-                                <Menu.Item key="1"><Link to ="/course">Course</Link></Menu.Item>
-                                <Menu.Item key="2"><Link to ="/booking">Booking</Link></Menu.Item>
-                                <Menu.Item key="3"><Link to ="/cart">Cart</Link></Menu.Item>
-                                <Search placeholder="input search text" onSearch={value => setSearchTerm(value)} style={{width:"20vw"}} senterButton />
-                                 <Button>{name}</Button>
+                            <Menu theme="light" mode="horizontal" defaultSelectedKeys={['key']} style={{display:"flex", justifyContent:"flex-start", alignItems:"center", backgroundColor:"#b5f5ec"}}>
+                                <Col style={{justifyContent:"center", alignItems:"center"}}><img src={logo} alt="logo" style={{ height: "70px", width: "100px", borderRadius:"10%", margin:"5px"}}/></Col>
+                                <Menu.Item key="1"><Link to ="/course"><b>Course</b></Link></Menu.Item>
+                                <Menu.Item key="3"><Link to ="/cart"><b>Cart</b></Link></Menu.Item>
+                                <Search placeholder="input search text" onSearch={value => setSearchTerm(value)} style={{width:"45vw", marginRight:"10px"}} senterButton />
+                                <Button style={{marginRight:"10px", width:"150px"}}><SmileTwoTone />Howdy : {name}</Button>
+                                <Button type="primary" primary style={{marginRight:"10px"}}><Link to ="/addcourse"> Add Course </Link></Button>
                                 <Button type="primary" danger onClick={logout} setRole={props.setRole}>Logout</Button>
                             </Menu>
                         </Layout>
                     </Col>
-                        
-                    <Col span={8}>
-                        
-                    </Col>
                 </Row>
-            </Col>
-        </Row>
-
     )
 }
 
