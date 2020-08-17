@@ -1,12 +1,12 @@
 import React,{useEffect, useState, useContext} from 'react'
 import Navbar from '../other/Navbar'
-import { Carousel,Card, Row, Col,Typography, Space } from 'antd';
+import { Carousel,Card, Row, Col,Typography, Space, Button,Menu, Dropdown  } from 'antd';
 import axios from '../../config/axios'
 import {CheckCircleTwoTone } from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import {SearchContext} from '../../context/SearchContext'
-
-
+import { Link } from 'react-router-dom';
+import { DownOutlined } from '@ant-design/icons';
 const contentStyle = {
     height: '90vh',
     width: '100vw',
@@ -22,8 +22,10 @@ const { Meta } = Card;
 
 function Course(props) {
 const { Text } = Typography;
+
 const {searchTerm, setSearchTerm} = useContext(SearchContext);   
 const [getCourse, setGetCourse] = useState([])
+
 
 
 console.log(searchTerm)
@@ -35,8 +37,6 @@ const toDoctorProfile=(item)=>{
 }
  
 
-
-
 useEffect(() => {
 const fetchData = async()=>{
    const getCourse = await axios.get(`/courses/search/?name=${searchTerm}`)
@@ -45,6 +45,10 @@ const fetchData = async()=>{
 }
     fetchData()
 }, [searchTerm])
+
+
+
+
 
     return (
         <Row>
@@ -91,6 +95,10 @@ const fetchData = async()=>{
                          </Col>)}
             </Row>
         </div>
+
+
+
+
             </Col>
         </Row>
     )

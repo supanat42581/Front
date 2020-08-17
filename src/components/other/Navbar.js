@@ -1,5 +1,5 @@
 import React , { useState, useEffect, useContext }from 'react'
-import { Layout, Menu, Row, Col, Button} from 'antd';
+import { Layout, Menu, Row, Col, Button, Dropdown} from 'antd';
 import LocalStorageService from '../../services/LocalStorageService';
 import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
@@ -9,6 +9,8 @@ import axios from '../../config/axios';
 import { SearchContext } from '../../context/SearchContext';
 import logo from '../../components/picture/logo.jpg'
 import { SmileTwoTone } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
+
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -37,6 +39,18 @@ function Navbar(props) {
         LocalStorageService.removeToken();
         props.setRole("guest");
     };
+
+    const menu = (
+        <Menu>
+          <Menu.Item>
+          <Link to ="/addcourse"> Add Course </Link>
+          </Menu.Item>
+          <Menu.Item> 
+            <Link to ="/doctorconfirm"> Check Course </Link>
+          </Menu.Item> 
+          
+        </Menu>
+      );
 
 
     const fetchData = async()=>{
@@ -71,9 +85,16 @@ function Navbar(props) {
                                 <Menu.Item key="1"><Link to ="/course"><b>Course</b></Link></Menu.Item>
                                 <Menu.Item key="3"><Link to ="/cart"><b>Cart</b></Link></Menu.Item>
                                 <Search placeholder="input search text" onSearch={value => setSearchTerm(value)} style={{width:"45vw", marginRight:"10px"}} senterButton />
-                                <Button style={{marginRight:"10px", width:"150px"}}><SmileTwoTone />Howdy : {name}</Button>
-                                <Button type="primary" primary style={{marginRight:"10px"}}><Link to ="/addcourse"> Add Course </Link></Button>
-                                <Button type="primary" danger onClick={logout} setRole={props.setRole}>Logout</Button>
+                                
+                                <Button style={{marginRight:"20px", width:"150px"}}>
+                                <Dropdown overlay={menu}>
+                                    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                   Howdy : {name} <DownOutlined />
+                                    </a>
+                                </Dropdown>
+                                </Button>
+
+                                <Button type="primary" danger onClick={logout} setRole={props.setRole} style={{marginleft:"10px"}}>Logout</Button>
                             </Menu>
                         </Layout>
                     </Col>

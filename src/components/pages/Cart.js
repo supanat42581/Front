@@ -11,7 +11,7 @@ function Cart(props) {
 
     // const [getCourse, setGetCourse] = useState({})
     const { Meta } = Card;
-    const { Text, Link } = Typography;
+    const { Text,} = Typography;
     const [courses, setCourses] = useState([])
 
 
@@ -63,12 +63,17 @@ function Cart(props) {
                     <Col span={24}>
                         <div> <Navbar setRole={props.setRole} /></div>
                     </Col>
+                <Row style={{display:"flex", justifyContent:"center"}}>
+                    <Col span ={24}>
+                    <div>CART</div>
+                    </Col>
+                </Row>
                 </Row>
                 <Row>
                     {courses.map(course => (
-                        <Col span={6} >
-                            <div style={{justifyContent:"center", alignItems:"middle"}}>
-                                <h1>CART</h1>
+                        <Col span={24} >
+                            <div style={{justifyContent:"center", alignItems:"middle", marginTop:"30px"}}>
+                                
                                 <Card
                                     hoverable
                                     style={{ display:"flex" ,width: "100vw"}}
@@ -90,7 +95,7 @@ function Cart(props) {
                                 
                                 </div>
                                     <br />
-                                    <br /> 
+                                    
                                     <div style={{display:"flex" ,justifyContent:"center"}}>
                                     <button onClick={() => deleteOrder(course.BOOKING_ID)}>DELETE</button>
                                     </div>
